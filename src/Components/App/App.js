@@ -4,25 +4,6 @@ import SearchBar from '../SearchBar/SearchBar';
 import SearchResults from '../SearchResults/SearchResults';
 import Playlist from '../Playlist/Playlist';
 
-let playlistName = 'Play';
-let playlistTracks = [{
-    id: 1,
-    name: 'Once',
-    artist: 'Yo',
-    album: 'Yola'
-  }, {
-    id: 1,
-    name: 'Twice',
-    artist: 'Yo',
-    album: 'Yola'
-  }, {
-    id: 1,
-    name: 'Thrice',
-    artist: 'Yo',
-    album: 'Yola'
-  }
-];
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -33,17 +14,44 @@ class App extends React.Component {
           artist: 'Yo',
           album: 'Yola'
         }, {
-          id: 1,
+          id: 2,
           name: 'Two',
           artist: 'Yo',
           album: 'Yola'
         }, {
-          id: 1,
+          id: 3,
           name: 'Three',
           artist: 'Yo',
           album: 'Yola'
         }
-      ]
+      ],
+      playlistTracks: [{
+          id: 1,
+          name: 'Once',
+          artist: 'Yo',
+          album: 'Yola'
+        }, {
+          id: 4,
+          name: 'Twice',
+          artist: 'Yo',
+          album: 'Yola'
+        }, {
+          id: 5,
+          name: 'Thrice',
+          artist: 'Yo',
+          album: 'Yola'
+        }
+      ],
+      playlistName: 'Play'
+    }
+    this.addTrack = this.addTrack.bind(this);
+  }
+
+  addTrack(track) {
+    if (this.state.playlistTracks.find(t => track.id === t.id)) {
+      return;
+    } else {
+      this.state.playlistTracks.push(track);
     }
   }
   
@@ -54,8 +62,8 @@ class App extends React.Component {
         <div class="App">
           <SearchBar/>
           <div class="App-playlist">
-            <SearchResults searchResults={this.state.searchResults}/>
-            <Playlist palylistName={playlistName} playlistTracks={playlistTracks}/>
+            <SearchResults searchResults={this.state.searchResults} onAdd={this.addTrack}/>
+            <Playlist palylistName={this.state.playlistName} playlistTracks={this.state.playlistTracks}/>
           </div>
         </div>
       </div>
